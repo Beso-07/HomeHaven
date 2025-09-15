@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:homehaven/constant.dart';
 import 'package:homehaven/cubit/Auth/auth_cubit.dart';
-import 'package:homehaven/model/register_model.dart';
+import 'package:homehaven/model/login_model.dart';
+import 'package:homehaven/screens/auth/register_view.dart';
+import 'package:homehaven/screens/home/home_view.dart';
 import 'package:homehaven/widgets/custom_button.dart';
 import 'package:homehaven/widgets/custom_login_with.dart';
 import 'package:homehaven/widgets/custom_text_field.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginViewState extends State<LoginView> {
   final _key = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -33,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               "Account created successfully",
               backgroundColor: Colors.green,
             );
+            Get.to(HomeView());
           }
           if (state is AuthFailed) {
             Get.snackbar(
@@ -51,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Column(
                   children: [
                     Text(
-                      'Create Account',
+                      'Welcome Back!',
                       style: TextStyle(
                         color: kTextColor,
                         fontSize: 32,
@@ -59,32 +61,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     Text(
-                      'Fill in your details below to get started on a seamless shopping experience.',
+                      'Enter your email to start shopping and get awesome deals today!',
                       style: TextStyle(color: Color(0xff757575), fontSize: 16),
                     ),
                     SizedBox(height: 32),
-                    CustomTextField(
-                      controller: _firstNameController,
-                      hintText: 'First Name',
-                      prefixIcon: Icons.person,
-                      // validator: (value) {
-                      //   if (value == null || value!.isEmpty) {
-                      //     return 'Field is required';
-                      //   }
-                      // },
-                    ),
-                    SizedBox(height: 16),
-                    CustomTextField(
-                      controller: _lastNameController,
-                      hintText: 'Last Name',
-                      prefixIcon: Icons.person,
-                      // validator: (value) {
-                      //   if (value == null || value!.isEmpty) {
-                      //     return 'Field is required';
-                      //   }
-                      // },
-                    ),
-                    SizedBox(height: 16),
                     CustomTextField(
                       controller: _emailController,
                       hintText: 'Email',
@@ -112,9 +92,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       // },
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      'By clicking Create Account, you acknowledge you have read and agreed to our Terms of Use and Privacy Policy',
-                      style: TextStyle(color: Color(0xff757575), fontSize: 16),
+                    Row(
+                      children: [
+                        Text(
+                          'Forgot your password?',
+                          style: TextStyle(color: kPrimaryColor, fontSize: 16),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 24),
                     BlocBuilder<AuthCubit, AuthState>(
@@ -124,17 +108,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return Center(child: CircularProgressIndicator());
                         }
                         return CustomButton(
-                          text: 'Creat Account',
+                          text: 'Log In',
                           onTap: () {
                             _key.currentState!.validate();
-                            // cubit.register(
-                            //   RegisterModel(
-                            //     firstName: _firstNameController.text,
-                            //     lastName: _lastNameController.text,
-                            //     email: _emailController.text,
-                            //     password: _passwordController.text,
-                            //   ),
-                            // );
+                            cubit.login(
+                              LoginModel(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ),
+                            );
                           },
                         );
                       },
@@ -163,16 +145,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 32),
                     CustomLoginWith(
                       imageName: 'google',
-                      text: 'Continue with Google',
+                      text: 'Login with Google',
                     ),
                     SizedBox(height: 16),
                     CustomLoginWith(
                       imageName: 'facebook',
-                      text: 'Continue with Facebook',
+                      text: 'Login with Facebook',
                     ),
                     SizedBox(height: 32),
-
-                    SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don’t have an account?',
+                          style: TextStyle(color: kTextColor, fontSize: 16),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => RegisterView(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 200),
                     indicatorImage,
                   ],
                 ),

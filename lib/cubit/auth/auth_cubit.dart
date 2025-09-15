@@ -1,9 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:homehaven/cubit/auth/auth_cubit.dart';
 import 'package:homehaven/helper/dio_helper.dart';
-import 'package:homehaven/helper/hive_helper.dart';
 import 'package:homehaven/model/login_model.dart';
-import 'package:homehaven/model/register_model.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_state.dart';

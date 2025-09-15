@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homehaven/constant.dart';
-import 'package:homehaven/screens/auth/login_screen.dart';
+import 'package:homehaven/screens/auth/login_view.dart';
 import 'package:homehaven/widgets/custom_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -114,9 +114,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       } else {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ),
+                          MaterialPageRoute(builder: (context) => LoginView()),
                         );
                       }
                     },
