@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:homehaven/helper/dio_helper.dart';
-import 'package:homehaven/helper/hive_helper.dart';
-import 'package:homehaven/model/register_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:homehaven/screens/welcome/splash_screen.dart';
+import 'package:homehaven/core/helpers/dio_helper.dart';
+import 'package:homehaven/core/helpers/hive_helper.dart';
+import 'package:homehaven/features/auth/data/models/register_model/register_model.dart';
+import 'package:homehaven/features/splash/presentation/views/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ class HomeHaven extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: SplashView(),
     );
   }
 }
