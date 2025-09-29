@@ -11,18 +11,19 @@ class BannerModel {
   String? endDate;
   String? createdAt;
 
-  BannerModel(
-      {this.id,
-      this.title,
-      this.description,
-      this.image,
-      this.link,
-      this.isActive,
-      this.position,
-      this.priority,
-      this.startDate,
-      this.endDate,
-      this.createdAt});
+  BannerModel({
+    this.id,
+    this.title,
+    this.description,
+    this.image,
+    this.link,
+    this.isActive,
+    this.position,
+    this.priority,
+    this.startDate,
+    this.endDate,
+    this.createdAt,
+  });
 
   BannerModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

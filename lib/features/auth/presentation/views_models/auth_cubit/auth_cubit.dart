@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:homehaven/core/helpers/dio_helper.dart';
+import 'package:homehaven/core/helpers/hive_helper.dart';
 import 'package:homehaven/features/auth/data/models/login_model/login_model.dart';
 import 'package:homehaven/features/home/presentation/views/home_view.dart';
 
@@ -26,6 +27,7 @@ class AuthCubit extends Cubit<AuthState> {
           backgroundColor: Colors.green,
         );
         emit(AuthSuccess());
+        //HiveHelper.setToken(loginModel.)
         Get.to(HomeView());
       } else {
         Get.snackbar(
@@ -38,7 +40,7 @@ class AuthCubit extends Cubit<AuthState> {
       }
     } catch (e) {
       Get.snackbar("Error", e.toString());
-      print(e.toString());
+      //print(e.toString());
       emit(AuthFailed());
     }
   }

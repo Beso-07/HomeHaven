@@ -3,6 +3,7 @@ import 'package:homehaven/features/auth/data/models/register_model/register_mode
 
 class HiveHelper {
   static const registerData = "RegisterData";
+  static const tokenBox = "token";
   static Future setLoginData(RegisterModel loginModel) async {
     await Hive.box(registerData).put(registerData, loginModel);
   }
@@ -16,5 +17,18 @@ class HiveHelper {
       RegisterModel result = Hive.box(registerData).get(registerData);
       //print("=============" + result.toJson());
     }
+  }
+
+  // token methods
+  static setToken(String token) async {
+    await Hive.box(tokenBox).put(tokenBox, token);
+  }
+
+  static String? getToken() {
+    return Hive.box(tokenBox).get(tokenBox);
+  }
+
+  static void clearToken() {
+    Hive.box(tokenBox).clear();
   }
 }

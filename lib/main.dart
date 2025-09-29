@@ -5,9 +5,13 @@ import 'package:homehaven/core/helpers/dio_helper.dart';
 import 'package:homehaven/core/helpers/hive_helper.dart';
 import 'package:homehaven/features/auth/data/models/register_model/register_model.dart';
 import 'package:homehaven/features/splash/presentation/views/splash_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   Hive.registerAdapter(RegisterModelAdapter());
   await Hive.openBox(HiveHelper.registerData);

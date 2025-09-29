@@ -23,6 +23,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -31,29 +32,28 @@ class _OnboardingViewState extends State<OnboardingView> {
             OnboardingData.onboardingList[count]['image'],
             fit: BoxFit.fill,
           ),
-          const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               OnboardingData.onboardingList[count]['title'],
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 32,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
                 color: AppColors.kTextColor,
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: height * .01),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               OnboardingData.onboardingList[count]['subTitle'],
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, color: Color(0xff757575)),
+              style: const TextStyle(fontSize: 14, color: Color(0xff757575)),
             ),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: height * .02),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -64,7 +64,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               Image.asset(AssetsPath.dot, color: getPointColor(2), height: 10),
             ],
           ),
-          const SizedBox(height: 32),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Row(
@@ -118,8 +118,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               ],
             ),
           ),
-          Spacer(),
-          Image.asset(AssetsPath.indicator),
+          SizedBox(height: height * .01),
         ],
       ),
     );
