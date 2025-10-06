@@ -112,13 +112,12 @@ class _LoginViewState extends State<LoginView> {
                           text: 'Log In',
                           onTap: () {
                             _key.currentState!.validate();
-                            cubit.login(
+                            cubit.loginWithFirebase(
                               LoginModel(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               ),
                             );
-                            
                           },
                         );
                       },

@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:homehaven/core/helpers/dio_helper.dart';
-import 'package:homehaven/core/helpers/hive_helper.dart';
 import 'package:homehaven/features/auth/data/models/login_model/login_model.dart';
 import 'package:homehaven/features/home/presentation/views/home_view.dart';
 
@@ -41,6 +41,28 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       Get.snackbar("Error", e.toString());
       //print(e.toString());
+      emit(AuthFailed());
+    }
+  }
+
+  void loginWithFirebase(LoginModel loginModel) async {
+    emit(AuthLoading());
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: loginModel.email,
+            password: loginModel.password,
+          );
+
+      emit(AuthSuccess());
+      Get.to(HomeView());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
       emit(AuthFailed());
     }
   }
